@@ -16,7 +16,7 @@ public class Customer {
     private String email;
     private String password;
     private List<CustomerRoleRef> roles = new ArrayList<>();
-    private List<CartItem> products = new ArrayList<>();
+    private List<CustomerCartItemRef> products = new ArrayList<>();
     public Customer(Integer customer_id, String email, String password) {
         this.customer_id = customer_id;
         this.email = email;
@@ -26,12 +26,10 @@ public class Customer {
         roles.add(new CustomerRoleRef(this.customer_id, role.getRole_id()));
     }
 
-    public void removeProductFromCart(CartItem cartItem){
-        products.remove(cartItem);
+    public void addCartItem(CartItem item){
+        products.add(new CustomerCartItemRef(this.customer_id,item.getCartItemId()));
     }
-    public CartItem findACartItem(long product_id){
-        return  products.stream().filter(n -> n.getProduct_id() == product_id).findAny().get();
-    }
+
     public Integer getId() {
         return customer_id;
     }
@@ -72,11 +70,17 @@ public class Customer {
         this.customer_id = customer_id;
     }
 
-    public List<CartItem> getProducts() {
+    public List<CustomerCartItemRef> getProducts() {
         return products;
     }
 
-    public void setProducts(List<CartItem> products) {
+    public void setProducts(List<CustomerCartItemRef> products) {
         this.products = products;
     }
+
+    public void removeFromCart(Integer cart_item_id) {
+        products.removeIf(n -> n.getCart_item()==cart_item_id);
+    }
+
+
 }

@@ -31,10 +31,15 @@ create table cart_item
 (
   cart_item_id int auto_increment,
   product_id int references product(product_id),
-  customer int references customer(customer_id),
-  customer_key int,
   amount int,
   price numeric(20,2),
   primary key (cart_item_id)
 );
 
+create table customer_cart_item_ref
+(
+    customer int references customer(customer_id),
+    customer_key int,
+    cart_item int references cart_item(cart_item_id),
+    cart_item_key int
+);

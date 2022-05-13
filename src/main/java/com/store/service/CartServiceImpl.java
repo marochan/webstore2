@@ -2,11 +2,13 @@ package com.store.service;
 
 import com.store.entity.CartItem;
 import com.store.entity.Customer;
+import com.store.entity.CustomerCartItemRef;
 import com.store.entity.Product;
 import com.store.repo.CartItemRepo;
 import com.store.repo.CustomerRepo;
 import com.store.repo.ProductDataRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,34 +34,35 @@ public class CartServiceImpl implements CartService{
         }
         double price = product.getPrice() * amount;
         CartItem cartItem = new CartItem(null, productId, amount, price);
-        customer.getProducts().add(cartItem);
-        productDataRepo.decrementAmountOf(productId, amount);
         cartItemRepo.save(cartItem);
+        customer.addCartItem(cartItem);
+        productDataRepo.decrementAmountOf(productId, amount);
+        customerRepo.save(customer);
         return customer;
     }
 
     @Override
     @Transactional
-    public Customer removeProductFromCart(String email, long productId) throws Exception {
+    public Customer removeProductFromCart(String email, Integer cart_item_id) throws Exception {
         Customer customer = customerRepo.findByEmail(email);
         if(customer.getProducts().isEmpty()){
             throw new Exception("Cart empty!");
         }
-        CartItem cartItem = customer.findACartItem(productId);
-        customer.removeProductFromCart(cartItem);
-        cartItemRepo.delete(cartItem);
-        productDataRepo.incrementAmountOf(productId, cartItem.getAmount());
+        CartItem itemToBeDeleted = cartItemRepo.findByCartItemId(cart_item_id);
+        customer.removeFromCart(cart_item_id);
+        cartItemRepo.delete(itemToBeDeleted);
+        productDataRepo.incrementAmountOf(itemToBeDeleted.getProduct_id(), itemToBeDeleted.getAmount());
         return  customer;
     }
 
     @Override
     @Transactional
-    public Customer modifyCartContent(String email, long productId, int newAmount) throws Exception {
+    public Customer modifyCartContent(String email,Integer cart_item_id, long productId, int newAmount) throws Exception {
         if(newAmount < 0){
             throw new IllegalArgumentException("Amount cannot be lower than 0!");
         }
         Customer customer = customerRepo.findByEmail(email);
-        CartItem cartItem = customer.findACartItem(productId);
+        CartItem cartItem = cartItemRepo.findByCartItemId(cart_item_id);
         int oldAmount = cartItem.getAmount();
         int diff = newAmount - oldAmount;
         if(diff > productDataRepo.findByProductId(productId).getAmount_available()){

@@ -33,4 +33,5 @@ public class CustomerController {
     public ResponseEntity<Customer> addItemToCart(@RequestBody Map<String, String> data) throws Exception {
         return ResponseEntity.ok(cartService.addItemToCart(data.get("email"), Integer.parseInt(data.get("product_id")), Integer.parseInt(data.get("amount"))));
     }
+
 }

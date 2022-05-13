@@ -1,28 +1,30 @@
 package com.store.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 public class CartItem {
 
     @Id
-    private Integer cart_item_id;
+    @Column("cart_item_id")
+    private Integer cartItemId;
     private long product_id;
     private int amount;
     private double price;
 
     public CartItem(Integer cart_item_id, long product_id, int amount, double price) {
-        this.cart_item_id = cart_item_id;
+        this.cartItemId = cart_item_id;
         this.product_id = product_id;
         this.amount = amount;
         this.price = price;
     }
 
-    public Integer getCart_item_id() {
-        return cart_item_id;
+    public Integer getCartItemId() {
+        return cartItemId;
     }
 
-    public void setCart_item_id(Integer cart_item_id) {
-        this.cart_item_id = cart_item_id;
+    public void setCartItemId(Integer cartItemId) {
+        this.cartItemId = cartItemId;
     }
 
     public long getProduct_id() {
