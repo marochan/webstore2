@@ -1,27 +1,33 @@
 package com.store.entity;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 
 public class Product {
 
     @Id
-    private Integer product_id;
+    @Column("PRODUCT_ID")
+    private Integer productId;
+    @Column("PRODUCT_NAME")
     private String product_name;
     private int amount_available;
     private double price;
     public Product(Integer product_id, String product_name, int amount_available, double price) {
-        this.product_id = product_id;
+        this.productId = product_id;
         this.product_name = product_name;
         this.amount_available = amount_available;
         this.price = price;
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Product() {
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getProduct_name() {
