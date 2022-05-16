@@ -26,7 +26,9 @@ public class Application {
             Role user = new Role(null, "ROLE_USER");
             Role admin = new Role(null, "ROLE_ADMIN");
             Product product = new Product(null, "Screwdriwer", 50, 5.40);
+            Product productTwo = new Product(null, "Basket", 13, 5);
             productDataRepo.save(product);
+            productDataRepo.save(productTwo);
             roleService.addNewRole(user);
             roleService.addNewRole(admin);
             Customer customer = new Customer(null, "example@example.com","examplepass");

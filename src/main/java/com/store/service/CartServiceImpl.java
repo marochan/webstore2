@@ -43,32 +43,33 @@ public class CartServiceImpl implements CartService{
 
     @Override
     @Transactional
-    public Customer removeProductFromCart(String email, Integer cart_item_id) throws Exception {
+    public Customer removeProductFromCart(String email, Integer id) throws Exception {
         Customer customer = customerRepo.findByEmail(email);
         if(customer.getProducts().isEmpty()){
             throw new Exception("Cart empty!");
         }
-        CartItem itemToBeDeleted = cartItemRepo.findByCartItemId(cart_item_id);
-        customer.removeFromCart(cart_item_id);
-        cartItemRepo.delete(itemToBeDeleted);
+        CartItem itemToBeDeleted = cartItemRepo.findByCartItemId(id);
+        long condition =  cartItemRepo.deleteByCartItemId(id);
+        //customer.removeFromCart(id);
         productDataRepo.incrementAmountOf(itemToBeDeleted.getProduct_id(), itemToBeDeleted.getAmount());
         return  customer;
     }
 
     @Override
     @Transactional
-    public Customer modifyCartContent(String email,Integer cart_item_id, long productId, int newAmount) throws Exception {
+    public Customer modifyCartContent(String email,Integer id, long productId, int newAmount) throws Exception {
         if(newAmount < 0){
             throw new IllegalArgumentException("Amount cannot be lower than 0!");
         }
         Customer customer = customerRepo.findByEmail(email);
-        CartItem cartItem = cartItemRepo.findByCartItemId(cart_item_id);
+        CartItem cartItem = cartItemRepo.findByCartItemId(id);
         int oldAmount = cartItem.getAmount();
         int diff = newAmount - oldAmount;
         if(diff > productDataRepo.findByProductId(productId).getAmount_available()){
             throw new Exception("Provided amount of product exceeds the available amount in the store!");
         } else {
             cartItem.setAmount(newAmount);
+            cartItemRepo.save(cartItem);
             if(diff>0){
                 productDataRepo.decrementAmountOf(productId, diff);
             } else {

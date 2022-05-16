@@ -40,6 +40,6 @@ create table customer_cart_item_ref
 (
     customer int references customer(customer_id),
     customer_key int,
-    cart_item int references cart_item(cart_item_id),
+    cart_item int references cart_item(cart_item_id) on delete cascade,
     cart_item_key int
 );

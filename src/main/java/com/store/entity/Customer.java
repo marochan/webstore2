@@ -79,7 +79,7 @@ public class Customer {
     }
 
     public void removeFromCart(Integer cart_item_id) {
-        products.removeIf(n -> n.getCart_item()==cart_item_id);
+        products.removeIf(n -> n.getCart_item().equals(cart_item_id));
     }
 
 
