@@ -1,11 +1,9 @@
 package com.store.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Table("CUSTOMER")
@@ -77,10 +75,5 @@ public class Customer {
     public void setProducts(List<CustomerCartItemRef> products) {
         this.products = products;
     }
-
-    public void removeFromCart(Integer cart_item_id) {
-        products.removeIf(n -> n.getCart_item().equals(cart_item_id));
-    }
-
 
 }
