@@ -21,7 +21,7 @@ public class Customer {
         this.password = password;
     }
     public void addRole(Role role){
-        roles.add(new CustomerRoleRef(this.customer_id, role.getRole_id()));
+        roles.add(new CustomerRoleRef(this.customer_id, role.getRoleId()));
     }
 
     public void addCartItem(CartItem item){

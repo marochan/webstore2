@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @RestController
@@ -62,5 +64,10 @@ public class CustomerController {
     @DeleteMapping("/order/delete")
     public ResponseEntity<?> cancelOrder(@RequestParam("purchaseId") Integer purchaseId){
         return ResponseEntity.ok(purchaseService.cancelOrder(purchaseId ));
+    }
+
+    @PostMapping("/reset")
+    public void resetPassword(HttpServletRequest request, HttpServletResponse response) throws Exception{
+        customerService.resetPassword(request, response);
     }
 }
