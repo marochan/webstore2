@@ -1,4 +1,4 @@
-package com.store.service;
+package com.store.service.role;
 
 import com.store.entity.Role;
 

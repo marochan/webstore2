@@ -1,16 +1,14 @@
 package com.store.entity;
 
-import org.springframework.data.relational.core.mapping.Column;
-
 public class PurchaseItemRef {
 
     private Integer purchase;
-    private Integer purchase_item;
+    private Integer purchaseItem;
 
 
-    public PurchaseItemRef(Integer purchase, Integer purchase_item) {
+    public PurchaseItemRef(Integer purchase, Integer purchaseItem) {
         this.purchase = purchase;
-        this.purchase_item = purchase_item;
+        this.purchaseItem = purchaseItem;
     }
 
     public Integer getPurchase() {
@@ -21,11 +19,11 @@ public class PurchaseItemRef {
         this.purchase = purchase;
     }
 
-    public Integer getPurchase_item() {
-        return purchase_item;
+    public Integer getPurchaseItem() {
+        return purchaseItem;
     }
 
-    public void setPurchase_item(Integer purchase_item) {
-        this.purchase_item = purchase_item;
+    public void setPurchaseItem(Integer purchaseItem) {
+        this.purchaseItem = purchaseItem;
     }
 }

@@ -1,4 +1,4 @@
-package com.store.service;
+package com.store.service.customer;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -9,8 +9,8 @@ import com.store.entity.Customer;
 import com.store.entity.Role;
 import com.store.repo.CustomerRepo;
 import com.store.repo.RoleRepo;
+import com.store.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

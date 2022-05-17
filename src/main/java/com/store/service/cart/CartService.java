@@ -1,9 +1,7 @@
-package com.store.service;
+package com.store.service.cart;
 
-import com.store.entity.CartItem;
 import com.store.entity.Customer;
 
-import java.util.List;
 import java.util.Map;
 
 public interface CartService {

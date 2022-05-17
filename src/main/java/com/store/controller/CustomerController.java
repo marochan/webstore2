@@ -3,9 +3,9 @@ package com.store.controller;
 import com.store.entity.Customer;
 import com.store.entity.Purchase;
 import com.store.repo.CustomerRepo;
-import com.store.service.CartService;
-import com.store.service.CustomerService;
-import com.store.service.PurchaseService;
+import com.store.service.cart.CartService;
+import com.store.service.customer.CustomerService;
+import com.store.service.purchase.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +47,7 @@ public class CustomerController {
     public ResponseEntity<Customer> removeItemFromCart(@RequestBody Map<String, String> data) throws Exception{
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(cartService.removeProductFromCart(data.get("email"), Integer.parseInt(data.get("cart_item_id"))));
     }
+
     @PutMapping("/cart/modify")
     public ResponseEntity<Customer> modifyCartContent(@RequestBody Map<String, String> data ) throws Exception{
         return ResponseEntity.ok(cartService.modifyCartContent(
@@ -61,6 +62,8 @@ public class CustomerController {
     public ResponseEntity<Map<String, Object>> displayCartContent(@RequestParam("customerId") Integer customerId){
         return ResponseEntity.ok(cartService.findCartItems(customerId));
     }
+
+
     @PostMapping("/order/create")
     public ResponseEntity<Purchase> createANewOrder(@RequestBody Map<String, String> data){
         return ResponseEntity.ok(purchaseService.createANewOrder(data.get("email")));

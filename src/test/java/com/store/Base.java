@@ -2,8 +2,7 @@ package com.store;
 
 import com.store.entity.Customer;
 import com.store.entity.Role;
-import com.store.service.CustomerService;
-import com.store.service.CustomerServiceImpl;
+import com.store.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;

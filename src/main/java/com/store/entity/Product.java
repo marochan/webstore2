@@ -9,17 +9,25 @@ public class Product {
     @Column("PRODUCT_ID")
     private Long productId;
     @Column("PRODUCT_NAME")
-    private String product_name;
-    private int amount_available;
+    private String productName;
+    private int amountAvailable;
     private double price;
-    public Product(Long product_id, String product_name, int amount_available, double price) {
+    public Product(Long product_id, String productName, int amountAvailable, double price) {
         this.productId = product_id;
-        this.product_name = product_name;
-        this.amount_available = amount_available;
+        this.productName = productName;
+        this.amountAvailable = amountAvailable;
         this.price = price;
     }
 
     public Product() {
+    }
+
+    public int getAmountAvailable() {
+        return amountAvailable;
+    }
+
+    public void setAmountAvailable(int amountAvailable) {
+        this.amountAvailable = amountAvailable;
     }
 
     public Long getProductId() {
@@ -28,22 +36,6 @@ public class Product {
 
     public void setProductId(Long productId) {
         this.productId = productId;
-    }
-
-    public String getProduct_name() {
-        return product_name;
-    }
-
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
-    }
-
-    public int getAmount_available() {
-        return amount_available;
-    }
-
-    public void setAmount_available(int amount_available) {
-        this.amount_available = amount_available;
     }
 
     public double getPrice() {

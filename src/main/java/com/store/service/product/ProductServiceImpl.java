@@ -1,16 +1,15 @@
-package com.store.service;
+package com.store.service.product;
 
 import com.store.entity.Product;
-import com.store.entity.Purchase;
 import com.store.repo.ProductDataRepo;
+import com.store.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
     ProductDataRepo productDataRepo;

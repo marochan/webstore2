@@ -1,4 +1,4 @@
-package com.store.service;
+package com.store.service.purchase;
 
 import com.store.entity.Purchase;
 

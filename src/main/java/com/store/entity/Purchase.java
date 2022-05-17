@@ -11,18 +11,14 @@ public class Purchase {
 
     @Id
     private Integer purchaseId;
-
     private String email;
-
     private List<PurchaseItemRef> purchaseItemRefs = new ArrayList<>();
-
     private double totalPrice;
-
     private String status;
 
-   public Purchase(){
+    public Purchase(){
 
-   }
+    }
 
     public String getStatus() {
         return status;

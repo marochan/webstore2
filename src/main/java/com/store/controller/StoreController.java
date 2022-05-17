@@ -2,11 +2,9 @@ package com.store.controller;
 
 import com.store.entity.Customer;
 import com.store.entity.Product;
-import com.store.repo.ProductDataRepo;
-import com.store.service.CustomerService;
-import com.store.service.ProductService;
+import com.store.service.customer.CustomerService;
+import com.store.service.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

@@ -4,15 +4,12 @@ import com.store.entity.Customer;
 import com.store.entity.Product;
 import com.store.entity.Role;
 import com.store.repo.ProductDataRepo;
-import com.store.service.CustomerService;
-import com.store.service.RoleService;
+import com.store.service.customer.CustomerService;
+import com.store.service.role.RoleService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @SpringBootApplication
 public class Application {

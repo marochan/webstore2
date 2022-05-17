@@ -1,14 +1,12 @@
-package com.store.service;
+package com.store.service.cart;
 
 import com.store.entity.CartItem;
 import com.store.entity.Customer;
-import com.store.entity.CustomerCartItemRef;
 import com.store.entity.Product;
 import com.store.repo.CartItemRepo;
 import com.store.repo.CustomerRepo;
 import com.store.repo.ProductDataRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CartServiceImpl implements CartService{
+public class CartServiceImpl implements CartService {
 
     @Autowired
     CustomerRepo customerRepo;
@@ -33,7 +31,7 @@ public class CartServiceImpl implements CartService{
     public Customer addItemToCart(String email, long productId, int amount) throws Exception {
         Customer customer = customerRepo.findByEmail(email);
         Product product = productDataRepo.findByProductId(productId);
-        if(amount > product.getAmount_available()){
+        if(amount > product.getAmountAvailable()){
             throw new Exception("Provided amount of product exceeds the available amount in the store!");
         }
         double price = product.getPrice() * amount;
@@ -54,8 +52,7 @@ public class CartServiceImpl implements CartService{
         }
         CartItem itemToBeDeleted = cartItemRepo.findByCartItemId(id);
         long condition =  cartItemRepo.deleteByCartItemId(id);
-        //customer.removeFromCart(id);
-        productDataRepo.incrementAmountOf(itemToBeDeleted.getProduct_id(), itemToBeDeleted.getAmount());
+        productDataRepo.incrementAmountOf(itemToBeDeleted.getProductId(), itemToBeDeleted.getAmount());
         return  customer;
     }
 
@@ -69,7 +66,7 @@ public class CartServiceImpl implements CartService{
         CartItem cartItem = cartItemRepo.findByCartItemId(id);
         int oldAmount = cartItem.getAmount();
         int diff = newAmount - oldAmount;
-        if(diff > productDataRepo.findByProductId(productId).getAmount_available()){
+        if(diff > productDataRepo.findByProductId(productId).getAmountAvailable()){
             throw new Exception("Provided amount of product exceeds the available amount in the store!");
         } else {
             cartItem.setAmount(newAmount);

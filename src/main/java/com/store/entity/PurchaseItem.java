@@ -6,14 +6,13 @@ public class PurchaseItem {
 
     @Id
     private Integer purchaseItemId;
-
-    private long product_id;
+    private Long productId;
     private int amount;
     private Double price;
 
-    public PurchaseItem(Integer purchaseItemId, long product_id, int amount, Double price) {
+    public PurchaseItem(Integer purchaseItemId, Long productId, int amount, Double price) {
         this.purchaseItemId = purchaseItemId;
-        this.product_id = product_id;
+        this.productId = productId;
         this.amount = amount;
         this.price = price;
     }
@@ -29,12 +28,8 @@ public class PurchaseItem {
         this.purchaseItemId = purchaseItemId;
     }
 
-    public long getProduct_id() {
-        return product_id;
-    }
-
-    public void setProduct_id(long product_id) {
-        this.product_id = product_id;
+    public Long getProductId() {
+        return productId;
     }
 
     public int getAmount() {

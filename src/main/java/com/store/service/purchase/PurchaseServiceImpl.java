@@ -1,7 +1,8 @@
-package com.store.service;
+package com.store.service.purchase;
 
 import com.store.entity.*;
 import com.store.repo.*;
+import com.store.service.purchase.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +47,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         Purchase purchase = purchaseRepo.findByPurchaseId(purchaseId);
         List<PurchaseItemRef> refs = purchase.getPurchaseItemRefs();
         for(PurchaseItemRef ref : refs){
-            PurchaseItem purchaseItem = purchaseItemRepo.findByPurchaseItemId(ref.getPurchase_item());
+            PurchaseItem purchaseItem = purchaseItemRepo.findByPurchaseItemId(ref.getPurchaseItem());
             int amount = purchaseItem.getAmount();
-            long productId = purchaseItem.getProduct_id();
+            long productId = purchaseItem.getProductId();
             productDataRepo.incrementAmountOf(productId, amount);
             purchaseItemRepo.delete(purchaseItem);
         }
@@ -67,7 +68,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         List<PurchaseItemRef> products = new ArrayList<>();
         for(CustomerCartItemRef c : refs){
             CartItem item = cartItemRepo.findByCartItemId(c.getCart_item());
-            PurchaseItem purchaseItem = new PurchaseItem(null, item.getProduct_id(), item.getAmount(), item.getPrice());
+            PurchaseItem purchaseItem = new PurchaseItem(null, item.getProductId(), item.getAmount(), item.getPrice());
             cartItemRepo.delete(item);
             purchaseItemRepo.save(purchaseItem);
             PurchaseItemRef ref = new PurchaseItemRef(purchase.getPurchaseId(), purchaseItem.getPurchaseItemId());
@@ -79,8 +80,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     public double calculateTotal(List<PurchaseItemRef> refs){
         double total = 0.0;
         for(PurchaseItemRef item : refs){
-            double price = purchaseItemRepo.findPriceByPurchaseItemId(item.getPurchase_item()).doubleValue();
-            total+=price;
+            Double price = purchaseItemRepo.findPriceByPurchaseItemId(item.getPurchaseItem()).doubleValue();
+            total+=price.doubleValue();
         }
         return total;
     }

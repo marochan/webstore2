@@ -1,7 +1,6 @@
 package com.store.entity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +13,14 @@ public class Customer {
     private String password;
     private List<CustomerRoleRef> roles = new ArrayList<>();
     private List<CustomerCartItemRef> products = new ArrayList<>();
+
     public Customer(Integer customerId, String email, String password) {
         this.customerId = customerId;
         this.email = email;
         this.password = password;
     }
+
+
     public void addRole(Role role){
         roles.add(new CustomerRoleRef(this.customerId, role.getRoleId()));
     }

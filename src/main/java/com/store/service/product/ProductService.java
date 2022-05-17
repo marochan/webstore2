@@ -1,4 +1,4 @@
-package com.store.service;
+package com.store.service.product;
 
 import com.store.entity.Product;
 
