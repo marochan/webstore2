@@ -10,7 +10,7 @@ create table product
     product_id int auto_increment,
     product_name varchar(255),
     amount_available int,
-    price numeric(20,2),
+    price double,
     primary key (product_id)
 );
 create table roles
@@ -32,7 +32,7 @@ create table cart_item
   cart_item_id int auto_increment,
   product_id int references product(product_id),
   amount int,
-  price numeric(20,2),
+  price double,
   primary key (cart_item_id)
 );
 
@@ -44,28 +44,28 @@ create table customer_cart_item_ref
     cart_item_key int
 );
 
-create table orders
+create table purchase
 (
-    order_id int auto_increment,
+    purchase_id int auto_increment,
     email varchar(128) references customer(email),
     total_price numeric(20,2),
     status varchar(255),
-    primary key (order_id)
+    primary key (purchase_id)
 );
 
-create table order_item
+create table purchase_item
 (
-    order_item_id int auto_increment,
-    customer int references product(product_id),
+    purchase_item_id int auto_increment,
+    product_id int references product(product_id),
     amount int,
     price numeric(20,2),
-    primary key (order_item_id)
+    primary key (purchase_item_id)
 );
 
-create table order_item_ref
+create table purchase_item_ref
 (
-    order_id int references  orders(order_id),
-    order_key int,
-    order_item_id int references  order_item(order_item_id) on delete cascade,
-    order_item_key int
+    purchase int references purchase(purchase_id),
+    purchase_key int,
+    purchase_item int references  purchase_item(purchase_item_id) on delete cascade,
+    purchase_item_key   int
 );

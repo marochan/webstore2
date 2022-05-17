@@ -1,11 +1,12 @@
 package com.store.controller;
 
 import com.store.entity.Customer;
+import com.store.entity.Purchase;
 import com.store.repo.CustomerRepo;
 import com.store.service.CartService;
 import com.store.service.CustomerService;
+import com.store.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ public class CustomerController {
     CartService cartService;
     @Autowired
     CustomerRepo customerRepo;
+    @Autowired
+    PurchaseService purchaseService;
+
     @GetMapping("/user")
     public ResponseEntity<Customer> findUserByEmail(@RequestBody Map<String, String> data){
         return ResponseEntity.ok().body(customerService.findCustomerByEmail(data.get("email")));
@@ -48,5 +52,15 @@ public class CustomerController {
                 Integer.parseInt(data.get("product_id")),
                 Integer.parseInt(data.get("amount"))
         ));
+    }
+
+    @PostMapping("/order/create")
+    public ResponseEntity<Purchase> createANewOrder(@RequestBody Map<String, String> data){
+        return ResponseEntity.ok(purchaseService.createANewOrder(data.get("email")));
+    }
+
+    @DeleteMapping("/order/delete")
+    public ResponseEntity<?> cancelOrder(@RequestParam("purchaseId") Integer purchaseId){
+        return ResponseEntity.ok(purchaseService.cancelOrder(purchaseId ));
     }
 }

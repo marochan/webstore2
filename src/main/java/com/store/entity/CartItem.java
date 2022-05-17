@@ -9,7 +9,7 @@ public class CartItem {
 
     private long product_id;
     private int amount;
-    private double price;
+    private Double price;
 
     public CartItem(Integer cartItemId, long product_id, int amount, double price) {
         this.cartItemId = cartItemId;
