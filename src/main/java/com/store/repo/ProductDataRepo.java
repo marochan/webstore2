@@ -12,10 +12,10 @@ public interface ProductDataRepo extends CrudRepository<Product, Long> {
 
     @Modifying
     @Query("UPDATE PRODUCT SET AMOUNT_AVAILABLE = AMOUNT_AVAILABLE - :amount WHERE PRODUCT_ID = :id")
-    void decrementAmountOf(@Param("id") long product_id, @Param("amount") int amount);
+    void decrementAmountOf(@Param("id") Long product_id, @Param("amount") int amount);
     @Modifying
     @Query("UPDATE PRODUCT SET AMOUNT_AVAILABLE = AMOUNT_AVAILABLE + :amount WHERE PRODUCT_ID = :id")
-    void incrementAmountOf(@Param("id") long product_id, @Param("amount") int amount);
+    void incrementAmountOf(@Param("id") Long product_id, @Param("amount") int amount);
 
     Product findByProductId(long product_id);
 }

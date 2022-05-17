@@ -16,6 +16,8 @@ public interface CartItemRepo extends CrudRepository<CartItem, Long> {
         @Query("DELETE FROM CART_ITEM WHERE CART_ITEM_ID = :id")
         long deleteByCartItemId(@Param("id") Integer id);
 
+        @Query("SELECT * FROM CART_ITEM WHERE CART_ITEM_ID IN (SELECT CART_ITEM FROM CUSTOMER_CART_ITEM_REF WHERE CUSTOMER = :customerId)")
+        List<CartItem> findCartItems(@Param("customerId") Integer customerId);
 
         CartItem findByCartItemId(Integer cartItemId);
 }

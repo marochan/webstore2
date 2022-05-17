@@ -6,35 +6,27 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table("CUSTOMER")
 public class Customer {
 
     @Id
-    private Integer customer_id;
+    private Integer customerId;
     private String email;
     private String password;
     private List<CustomerRoleRef> roles = new ArrayList<>();
     private List<CustomerCartItemRef> products = new ArrayList<>();
-    public Customer(Integer customer_id, String email, String password) {
-        this.customer_id = customer_id;
+    public Customer(Integer customerId, String email, String password) {
+        this.customerId = customerId;
         this.email = email;
         this.password = password;
     }
     public void addRole(Role role){
-        roles.add(new CustomerRoleRef(this.customer_id, role.getRoleId()));
+        roles.add(new CustomerRoleRef(this.customerId, role.getRoleId()));
     }
 
     public void addCartItem(CartItem item){
-        products.add(new CustomerCartItemRef(this.customer_id,item.getCartItemId()));
+        products.add(new CustomerCartItemRef(this.customerId,item.getCartItemId()));
     }
 
-    public Integer getId() {
-        return customer_id;
-    }
-
-    public void setId(Integer customer_id) {
-        this.customer_id = customer_id;
-    }
 
     public String getEmail() {
         return email;
@@ -58,14 +50,6 @@ public class Customer {
 
     public void setRoles(List<CustomerRoleRef> roles) {
         this.roles = roles;
-    }
-
-    public Integer getCustomer_id() {
-        return customer_id;
-    }
-
-    public void setCustomer_id(Integer customer_id) {
-        this.customer_id = customer_id;
     }
 
     public List<CustomerCartItemRef> getProducts() {

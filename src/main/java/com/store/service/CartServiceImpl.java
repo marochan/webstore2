@@ -12,6 +12,10 @@ import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CartServiceImpl implements CartService{
 
@@ -78,5 +82,18 @@ public class CartServiceImpl implements CartService{
 
         }
         return customer;
+    }
+
+    @Override
+    public Map<String, Object> findCartItems(Integer customerId) {
+        List<CartItem> items = cartItemRepo.findCartItems(customerId);
+        double total = 0.0;
+        for (CartItem cartItem : items){
+            total+=cartItem.getPrice();
+        }
+        Map<String, Object> cart = new HashMap<>();
+        cart.put("items", items);
+        cart.put("total", total);
+        return cart;
     }
 }

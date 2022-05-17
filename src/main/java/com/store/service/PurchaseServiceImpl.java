@@ -56,6 +56,12 @@ public class PurchaseServiceImpl implements PurchaseService {
         return 0;
     }
 
+    @Override
+    public List<Purchase> findAllPurchasesByCustomer(Integer customerId) {
+        String email = customerRepo.findEmailByCustomerId(customerId);
+        return purchaseRepo.findAllByEmail(email);
+    }
+
 
     public List<PurchaseItemRef> getOrderItems(Purchase purchase, List<CustomerCartItemRef> refs){
         List<PurchaseItemRef> products = new ArrayList<>();

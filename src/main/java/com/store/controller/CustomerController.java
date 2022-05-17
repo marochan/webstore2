@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,6 +57,10 @@ public class CustomerController {
         ));
     }
 
+    @GetMapping("/cart/getCart")
+    public ResponseEntity<Map<String, Object>> displayCartContent(@RequestParam("customerId") Integer customerId){
+        return ResponseEntity.ok(cartService.findCartItems(customerId));
+    }
     @PostMapping("/order/create")
     public ResponseEntity<Purchase> createANewOrder(@RequestBody Map<String, String> data){
         return ResponseEntity.ok(purchaseService.createANewOrder(data.get("email")));
@@ -64,6 +69,11 @@ public class CustomerController {
     @DeleteMapping("/order/delete")
     public ResponseEntity<?> cancelOrder(@RequestParam("purchaseId") Integer purchaseId){
         return ResponseEntity.ok(purchaseService.cancelOrder(purchaseId ));
+    }
+
+    @GetMapping("/order/getAll")
+    public ResponseEntity<List<Purchase>> findAllPurchasesByCustomer(@RequestParam("customerId")Integer customerId){
+        return ResponseEntity.ok(purchaseService.findAllPurchasesByCustomer(customerId));
     }
 
     @PostMapping("/reset")
