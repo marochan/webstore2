@@ -13,4 +13,5 @@ public interface CustomerRepo extends CrudRepository<Customer, Long> {
 
     @Query("SELECT EMAIL FROM CUSTOMER WHERE CUSTOMER_ID = :customerId")
     String findEmailByCustomerId(@Param("customerId") Integer customerId);
+
 }

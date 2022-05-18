@@ -33,9 +33,9 @@ public class CustomerController {
         return ResponseEntity.ok().body(customerService.findCustomerByEmail(data.get("email")));
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<Customer> registerNewCustomer(@RequestBody Map<String, String> data){
-        return ResponseEntity.ok(customerService.saveCustomer(new Customer(null, data.get("email"), data.get("password"))));
+    @PostMapping("/register")
+    public ResponseEntity<Customer> registerNewCustomer(@RequestBody Map<String, String> data) throws Exception {
+        return ResponseEntity.ok(customerService.registerNewCustomer(data));
     }
 
     @PostMapping("/cart/add")

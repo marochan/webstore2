@@ -9,7 +9,6 @@ import com.store.entity.Customer;
 import com.store.entity.Role;
 import com.store.repo.CustomerRepo;
 import com.store.repo.RoleRepo;
-import com.store.service.customer.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +34,20 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     RoleRepo roleRepo;
 
     BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    @Override
+    public Customer registerNewCustomer(Map<String, String> credentials) throws Exception{
+        String email = credentials.get("email");
+        String password = credentials.get("password");
+        if(customerRepo.findByEmail(email)!=null){
+            throw new Exception("Email already exists in the database!");
+        } else {
+            Customer newCustomer = new Customer(null, email, bCryptPasswordEncoder.encode(password));
+            newCustomer.addRole(roleRepo.findByName("ROLE_USER"));
+            customerRepo.save(newCustomer);
+            return newCustomer;
+        }
+    }
 
     @Override
     @Transactional
